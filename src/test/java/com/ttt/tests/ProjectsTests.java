@@ -4,9 +4,6 @@ import org.junit.jupiter.api.*;
 import com.aventstack.extentreports.Status;
 import com.ttt.providers.GitHubAPIImp;
 
-//NOTE:
-//The class name postfix (Tests) was intentionally garbled to prevent parallel execution.
-//That is because I probably couldn't set a token permission to create a project
 public class ProjectsTests extends BaseTest {
     private String projectId;
     private String repoName = uniqueRepoName();
