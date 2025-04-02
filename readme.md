@@ -52,8 +52,10 @@ Used mostly RestAssured and a bit of Selenium - this more important to check the
     3.2. GH_TOKEN - your Github token
         3.2.1. I used a CLASSIC token, and without thinking too much I enables all the permissions for it.
 
-4. Running the tests will create logs under targets\surefire-reports and a spark-report-********.html report file 
+4. Running the tests will create logs under targets\surefire-reports and a spark-report-********.html report file
 
-5. I do not declare this as my best effort, but I think, given this work will be thrown to the garbage bin tomorrow, it is good enough to show my abilities.
+5. Providers should be supplied via a configuration file. For this project I select them hardcoded in test files.
+
+6. I do not declare this as my best effort, but I think, given this work will be thrown to the garbage bin tomorrow, it is good enough to show my abilities.
 
 Thanks!!!
