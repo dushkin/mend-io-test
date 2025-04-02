@@ -1,8 +1,13 @@
 package com.ttt.providers;
 
+import com.aventstack.extentreports.ExtentTest;
+
 import io.restassured.response.Response;
 
 public class BitBucketAPIImp implements VersionControlProvider{
+
+    public BitBucketAPIImp(String repoName, ExtentTest test) {
+    }
 
     @Override
     public void createRepo() {

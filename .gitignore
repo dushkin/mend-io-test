@@ -1,0 +1,78 @@
+# Compiled class files
+*.class
+
+# Logs
+*.log
+*.out
+*.err
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# VSCode settings
+.vscode/
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+*.iws
+
+# Eclipse project files
+.classpath
+.project
+.settings/
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+target/
+
+# Gradle
+.gradle/
+build/
+
+# Selenium WebDriver downloads
+selenium-server-standalone-*.jar
+chromedriver*
+geckodriver*
+
+# Test Reports
+surefire-reports/
+test-output/
+allure-results/
+allure-report/
+
+# Dependencies
+lib/
+node_modules/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# IDX specific files
+.idx/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*.bak

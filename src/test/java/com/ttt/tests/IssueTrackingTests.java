@@ -2,7 +2,10 @@ package com.ttt.tests;
 import org.junit.jupiter.api.*;
 
 import com.aventstack.extentreports.Status;
-import com.ttt.providers.GitHubAPIImp;
+
+import com.ttt.providers.VersionControlFactory;
+import com.ttt.providers.VersionControlProvider;
+import com.ttt.providers.VersionControlType;
 
 public class IssueTrackingTests extends BaseTest {
     private static final String issue_title = "Test Issue";
@@ -10,7 +13,7 @@ public class IssueTrackingTests extends BaseTest {
     private final String testLabel = "bug";
     private int issueNumber;
     private String repoName = uniqueRepoName();
-    private GitHubAPIImp gitHubAPI;
+    private VersionControlProvider provider;
     protected static String assignee = System.getenv("GH_USERNAME");
     
     @BeforeEach
@@ -18,13 +21,13 @@ public class IssueTrackingTests extends BaseTest {
         String testName = testInfo.getDisplayName();
         test = extent.createTest(testName);
 
-        gitHubAPI = new GitHubAPIImp(repoName, test);
+        provider = VersionControlFactory.getVersionControlProvider(VersionControlType.GITHUB, repoName, test);
 
         test.log(Status.INFO, "Starting test setup for: " + testName);
 
-        gitHubAPI.createRepo();
+        provider.createRepo();
         // Create initial issue
-        issueNumber = gitHubAPI.createIssue(issue_title, issue_body, gitHubUserName);
+        issueNumber = provider.createIssue(issue_title, issue_body, gitHubUserName);
     }
 
     @Test
@@ -33,7 +36,7 @@ public class IssueTrackingTests extends BaseTest {
 
         test.log(Status.INFO, "Attempting to add label to issue #" + issueNumber);
 
-        gitHubAPI.addIssueLabel(testLabel, issueNumber, gitHubUserName);
+        provider.addIssueLabel(testLabel, issueNumber, gitHubUserName);
         
         test.log(Status.PASS, "Successfully added label '" + testLabel + "' to issue");
     }
@@ -44,7 +47,7 @@ public class IssueTrackingTests extends BaseTest {
 
         test.log(Status.INFO, "Attempting to assign issue #" + issueNumber + " to user: " + assignee);
         
-        gitHubAPI.assignIssue(assignee, issueNumber, gitHubUserName);
+        provider.assignIssue(assignee, issueNumber, gitHubUserName);
         
         test.log(Status.PASS, "Successfully assigned issue to user: " + assignee);
     }
@@ -55,7 +58,7 @@ public class IssueTrackingTests extends BaseTest {
         
         test.log(Status.INFO, "Attempting to close issue #" + issueNumber);
         
-        gitHubAPI.closeIssue(issueNumber, gitHubUserName);
+        provider.closeIssue(issueNumber, gitHubUserName);
         
         test.log(Status.PASS, "Successfully closed issue");
     }
@@ -63,6 +66,6 @@ public class IssueTrackingTests extends BaseTest {
     @AfterEach
     void afterEach() {
         test.log(Status.INFO, "Cleaning up test resources");
-        gitHubAPI.deleteRepo();
+        provider.deleteRepo();
     }
 }

@@ -10,11 +10,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.aventstack.extentreports.Status;
-import com.ttt.providers.GitHubAPIImp;
+
+import com.ttt.providers.VersionControlFactory;
+import com.ttt.providers.VersionControlProvider;
+import com.ttt.providers.VersionControlType;
 
 public class RepositoryTests extends BaseTest {
+    
+    private VersionControlProvider provider;
     private String repoName = uniqueRepoName();
-    private GitHubAPIImp gitHubAPI;
     
     @BeforeEach
     void beforeEach(TestInfo testInfo) {
@@ -22,7 +26,7 @@ public class RepositoryTests extends BaseTest {
         String testName = testInfo.getDisplayName();
         test = extent.createTest(testName);
         
-        gitHubAPI = new GitHubAPIImp(repoName, test);
+        provider = VersionControlFactory.getVersionControlProvider(VersionControlType.GITHUB, repoName, test);
     }
 
     @Test
@@ -30,7 +34,7 @@ public class RepositoryTests extends BaseTest {
 
         test.log(Status.INFO, "Starting repository creation test");
         
-        gitHubAPI.createRepo();
+        provider.createRepo();
         
         driver.get("https://github.com/" + System.getenv("GH_USERNAME"));
         test.log(Status.INFO, "Navigated to GitHub profile page");
@@ -44,6 +48,6 @@ public class RepositoryTests extends BaseTest {
     @AfterEach
     void afterEach() {
         test.log(Status.INFO, "Cleaning up test resources");
-        gitHubAPI.deleteRepo();
+        provider.deleteRepo();
     }
 }
